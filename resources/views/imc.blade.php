@@ -28,6 +28,11 @@
                 <input type="number" id="altura" name="altura" step="0.01" required placeholder="Ex: 1.75" min="1.00" max="2.50">
             </div>
 
+            <div class="input-group">
+                <label for="idade"><i class="fas fa-user"></i> Idade</label>
+                <input type="number" id="idade" name="idade" required placeholder="Ex: 25" min="1" max="120">
+            </div>
+
             <button type="submit" class="calculate-btn">
                 Calcular IMC <i class="fas fa-arrow-right"></i>
             </button>
@@ -37,9 +42,13 @@
         @if(isset($imc))
         <div class="result-container">
             <h2>Seu Resultado: <span class="bmi-value">{{ number_format($imc, 2) }}</span></h2>
+            <p><strong>Idade:</strong> {{ $idade }} anos</p>
 
             <div class="bmi-scale">
-                <div class="scale-progress" style="width: {{ $progress ?? 0 }}%;" class="{{ $progress < 18.5 ? 'underweight' : ($progress < 24.9 ? 'normal' : ($progress < 29.9 ? 'overweight' : 'obese')) }}"></div>
+                <div class="scale-progress" 
+                     style="width: {{ $progress }}%;" 
+                     class="{{ $imc < 18.5 ? 'underweight' : ($imc < 24.9 ? 'normal' : ($imc < 29.9 ? 'overweight' : 'obese')) }}">
+                </div>
                 <div class="scale-labels">
                     <span>Abaixo</span><span>Normal</span><span>Sobrepeso</span><span>Obesidade</span>
                 </div>
@@ -47,7 +56,7 @@
 
             <div class="result-message">
                 <i class="fas fa-comment-medical"></i>
-                <p>{{ $interpretation ?? 'Sem dados disponíveis' }}</p>
+                <p>{{ $interpretation }}</p>
             </div>
         </div>
         @endif
